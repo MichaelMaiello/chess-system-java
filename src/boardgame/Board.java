@@ -17,7 +17,7 @@ public class Board {
 		this.columns = columns;
 		pieces = new Piece[rows][columns];
 	}
-
+	
 	
 	//Métodos de acesso
 	public Integer getRows() {
@@ -34,5 +34,14 @@ public class Board {
 
 	public void setColumns(Integer columns) {
 		this.columns = columns;
+	}
+	
+	//Métodos
+	public Piece pieces(int row, int column) {
+		return pieces[row][column];
+	}
+	
+	public Piece pieces(Position position) {
+		return pieces[position.getRow()] [position.getColumn()];
 	}
 }
