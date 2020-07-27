@@ -1,52 +1,69 @@
 package boardgame;
 
 public class Board {
-	
-	//Atributos
+
+	// Atributos
 	private Integer rows;
 	private Integer columns;
 	private Piece[][] pieces;
-	
-	
-	//construtor
+
+	// construtor
 	public Board() {
 	}
-	
+
 	public Board(Integer rows, Integer columns) {
+		if (rows < 1 || columns < 1) {
+			throw new BoardException("Erro criando tabuleiro");
+		}
 		this.rows = rows;
 		this.columns = columns;
 		pieces = new Piece[rows][columns];
 	}
-	
-	
-	//Métodos de acesso
+
+	// Métodos de acesso
 	public Integer getRows() {
 		return rows;
-	}
-
-	public void setRows(Integer rows) {
-		this.rows = rows;
 	}
 
 	public Integer getColumns() {
 		return columns;
 	}
 
-	public void setColumns(Integer columns) {
-		this.columns = columns;
-	}
-	
-	//Métodos
+	// Métodos
 	public Piece pieces(int row, int column) {
+		if (!positionExists(row, column)) {
+			throw new BoardException("Posição não existe!");
+		}
 		return pieces[row][column];
 	}
-	
+
 	public Piece pieces(Position position) {
-		return pieces[position.getRow()] [position.getColumn()];
+		if (!positionExists(position)) {
+			throw new BoardException("Posição não existe!");
+		}
+		return pieces[position.getRow()][position.getColumn()];
 	}
-	
+
 	public void placepieces(Piece piece, Position position) {
-		pieces[position.getRow()] [position.getColumn()] = piece;
+		if (thereIsAPiece(position)) {
+			throw new BoardException("Já existe uma peça na posição " + position);
+		}
+		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
+	}
+
+	public boolean positionExists(int row, int column) {
+		return row >= 0 && row < rows && column >= 0 && column < columns;
+	}
+
+	public boolean positionExists(Position position) {
+		return positionExists(position.getRow(), position.getColumn());
+	}
+
+	public boolean thereIsAPiece(Position position) {
+		if (!positionExists(position)) {
+			throw new BoardException("Posição não existe!");
+		}
+		return pieces(position) != null;
 	}
 }
