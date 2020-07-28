@@ -59,6 +59,12 @@ public class ChessMatch {
 		return mat;
 	}
 	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		Position position = sourcePosition.toPosition();
+		validateSourcePosition(position);
+		return board.pieces(position).possibleMoves();
+	}
+	
 	private void validateTargetPosition(Position source, Position target) {
 		if (!board.pieces(source).possibleMove(target)){
 			throw new ChessException("A peça escolhida não pode se mover para posição de destino");
