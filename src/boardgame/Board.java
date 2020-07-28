@@ -81,6 +81,4 @@ public class Board {
 		}
 		return pieces(position) != null;
 	}
-	
-	
 }
