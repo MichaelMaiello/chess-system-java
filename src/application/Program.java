@@ -40,8 +40,13 @@ public class Program {
 				}
 				
 				if (chessMath.getPromoted() != null) {
-					System.out.print("Enter piece for promotion (B/C/R/Q): ");
-					String type = sc.nextLine();
+					System.out.print("Entre piece for promotion (B/C/R/Q): ");
+					String type = sc.nextLine().toUpperCase();
+					
+					while (!type.equals("B") && !type.equals("C") && !type.equals("R") && !type.equals("Q")) {
+						System.out.print("Valor invalido! Entre piece for promotion (B/C/R/Q): ");
+						type = sc.nextLine().toUpperCase();
+					}
 					chessMath.replacePromotedPiece(type);
 				}
 				
